@@ -7,7 +7,9 @@
 *.dll
 *.so
 *.dylib
-
+config.yaml
+docker-compose.yml
+*pem
 # Test binary, built with `go test -c`
 *.test
 
