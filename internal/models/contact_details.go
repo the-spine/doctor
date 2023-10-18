@@ -4,6 +4,7 @@ import "github.com/google/uuid"
 
 type ContanctDetails struct {
 	ID               uuid.UUID `gorm:"primary_key"`
+	DoctorID         uuid.UUID `gorm:"not null"`
 	PhoneNumber      string    `gorm:"not null"`
 	Email            string    `gorm:"not null"`
 	Website          string    `gorm:"not null"`

@@ -8,6 +8,7 @@ import (
 
 type AvailableHours struct {
 	ID         uuid.UUID    `gorm:"primary_key"`
+	DoctorID   uuid.UUID    `gorm:"not null"`
 	Weekday    time.Weekday `gorm:"not null"`
 	StartHours int          `gorm:"not null"`
 	EndHours   int          `gorm:"not null"`
