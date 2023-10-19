@@ -5,34 +5,13 @@ import (
 	"doctor/internal/config"
 	"doctor/internal/models"
 	"doctor/internal/repository"
-	"time"
+	"doctor/internal/utils"
 
 	"github.com/google/uuid"
 	docpb "github.com/the-spine/spine-protos-go/doctor"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
-
-func getWeekDay(w docpb.WeekDay) time.Weekday {
-	switch w {
-	case docpb.WeekDay_MONDAY:
-		return time.Monday
-	case docpb.WeekDay_TUESDAY:
-		return time.Tuesday
-	case docpb.WeekDay_WEDNESDAY:
-		return time.Wednesday
-	case docpb.WeekDay_THURSDAY:
-		return time.Thursday
-	case docpb.WeekDay_FRIDAY:
-		return time.Friday
-	case docpb.WeekDay_SATURDAY:
-		return time.Saturday
-	case docpb.WeekDay_SUNDAY:
-		return time.Sunday
-	default:
-		return time.Monday
-	}
-}
 
 type doctorGrpcApi struct {
 	config config.Config
@@ -80,7 +59,7 @@ func (d *doctorGrpcApi) RegisterDoctor(ctx context.Context, req *docpb.RegisterD
 
 	for _, ah := range doc.AvailableHours {
 		availableHours = append(availableHours, models.AvailableHours{
-			Weekday:    getWeekDay(ah.WeekDay),
+			Weekday:    utils.ProtoWeekdayToWeekDay(ah.WeekDay),
 			StartHours: int(ah.StartHour),
 			EndHours:   int(ah.EndHour),
 		})
@@ -111,8 +90,31 @@ func (d *doctorGrpcApi) RegisterDoctor(ctx context.Context, req *docpb.RegisterD
 	return &res, nil
 }
 func (d *doctorGrpcApi) GetDoctor(ctx context.Context, req *docpb.GetDoctorRequest) (*docpb.GetDoctorResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDoctor not implemented")
+
+	resDoctors := make([]*docpb.Doctor, 10)
+
+	id := req.DoctorId
+
+	if id != "" {
+		if doc, err := repository.GetDoctorByID(id); err == nil {
+			d := doc.ToProtoDoctor()
+			resDoctors = append(resDoctors, &d)
+		}
+	} else {
+		docs := make([]models.Doctor, 0)
+		if err := repository.GetDoctors(&docs); err == nil {
+			for _, doc := range docs {
+				d := doc.ToProtoDoctor()
+				resDoctors = append(resDoctors, &d)
+			}
+		}
+	}
+	res := docpb.GetDoctorResponse{
+		Doctors: resDoctors,
+	}
+	return &res, nil
 }
+
 func (d *doctorGrpcApi) CheckDoctorAvailability(ctx context.Context, req *docpb.DoctorAvailabilityRequest) (*docpb.DoctorAvailabilityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckDoctorAvailability not implemented")
 }

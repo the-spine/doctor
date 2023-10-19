@@ -1,9 +1,11 @@
 package models
 
 import (
+	"doctor/internal/utils"
 	"time"
 
 	"github.com/google/uuid"
+	docpb "github.com/the-spine/spine-protos-go/doctor"
 )
 
 type AvailableHours struct {
@@ -15,4 +17,12 @@ type AvailableHours struct {
 	CreatedAt  time.Time    `gorm:"not null"`
 	UpdatedAt  time.Time    `gorm:"not null"`
 	DeletedAt  time.Time    `gorm:"not null"`
+}
+
+func (a *AvailableHours) ToProtoAvailableHours() docpb.AvailableHour {
+	return docpb.AvailableHour{
+		WeekDay:   utils.WeekdayToProtoWeekDay(a.Weekday),
+		StartHour: int32(a.StartHours),
+		EndHour:   int32(a.EndHours),
+	}
 }

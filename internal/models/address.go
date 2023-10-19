@@ -1,6 +1,9 @@
 package models
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+	docpb "github.com/the-spine/spine-protos-go/doctor"
+)
 
 type Address struct {
 	ID         uuid.UUID `gorm:"primary_key"`
@@ -13,4 +16,14 @@ type Address struct {
 	CreatedAt  string    `gorm:"not null"`
 	UpdatedAt  string    `gorm:"not null"`
 	DeletedAt  string    `gorm:"not null"`
+}
+
+func (a *Address) ToProtoAddress() docpb.Address {
+	return docpb.Address{
+		Street:     a.Street,
+		City:       a.City,
+		State:      a.State,
+		Country:    a.Country,
+		PostalCode: a.PostalCode,
+	}
 }
