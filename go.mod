@@ -6,6 +6,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/redis/go-redis/v9 v9.2.1
 	github.com/spf13/viper v1.17.0
+	github.com/the-spine/spine-protos-go v0.0.0-20231026160203-41c3fc93cb99
 	google.golang.org/grpc v1.58.2
 	gorm.io/driver/postgres v1.5.3
 	gorm.io/gorm v1.25.5
@@ -32,7 +33,6 @@ require (
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
-	github.com/the-spine/spine-protos-go v0.0.0-20231015065044-6ab3c87cacca // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/crypto v0.13.0 // indirect

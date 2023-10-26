@@ -46,8 +46,8 @@ func (d *Doctor) ToProtoDoctor() docpb.Doctor {
 			LastName:   d.LastName,
 		},
 		Specialty: d.Speciality,
+		Address:   &address,
 		ContactDetails: &docpb.ContactDetails{
-			Address:          &address,
 			Email:            d.ContanctDetails.Email,
 			Website:          d.ContanctDetails.Website,
 			PhoneNumber:      d.ContanctDetails.PhoneNumber,

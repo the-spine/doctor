@@ -31,11 +31,11 @@ func (d *doctorGrpcApi) RegisterDoctor(ctx context.Context, req *docpb.RegisterD
 	id := uuid.New()
 
 	address := models.Address{
-		Street:     doc.ContactDetails.Address.Street,
-		City:       doc.ContactDetails.Address.City,
-		State:      doc.ContactDetails.Address.State,
-		Country:    doc.ContactDetails.Address.Country,
-		PostalCode: doc.ContactDetails.Address.PostalCode,
+		Street:     doc.Address.Street,
+		City:       doc.Address.City,
+		State:      doc.Address.State,
+		Country:    doc.Address.Country,
+		PostalCode: doc.Address.PostalCode,
 	}
 
 	contact := models.ContanctDetails{

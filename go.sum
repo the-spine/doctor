@@ -204,8 +204,8 @@ github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcU
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/subosito/gotenv v1.6.0 h1:9NlTDc1FTs4qu0DDq7AEtTPNw6SVm7uBMsUCUjABIf8=
 github.com/subosito/gotenv v1.6.0/go.mod h1:Dk4QP5c2W3ibzajGcXpNraDfq2IrhjMIvMSWPKKo0FU=
-github.com/the-spine/spine-protos-go v0.0.0-20231015065044-6ab3c87cacca h1:C5yv4IQzU/HLUoJmKn1hCLVKfbzv90r6kETMf2+XoiI=
-github.com/the-spine/spine-protos-go v0.0.0-20231015065044-6ab3c87cacca/go.mod h1:VS0mr1NNN7cxnlxNcBAzKrU0r+r1zMjYeGaNBoH/RZU=
+github.com/the-spine/spine-protos-go v0.0.0-20231026160203-41c3fc93cb99 h1:fM+8dmceF31MzxbaQL+1Ejcu5Xm2HMka5BvZt6BXNl8=
+github.com/the-spine/spine-protos-go v0.0.0-20231026160203-41c3fc93cb99/go.mod h1:VS0mr1NNN7cxnlxNcBAzKrU0r+r1zMjYeGaNBoH/RZU=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
