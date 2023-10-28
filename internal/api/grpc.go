@@ -116,7 +116,22 @@ func (d *doctorGrpcApi) GetDoctor(ctx context.Context, req *docpb.GetDoctorReque
 }
 
 func (d *doctorGrpcApi) CheckDoctorAvailability(ctx context.Context, req *docpb.DoctorAvailabilityRequest) (*docpb.DoctorAvailabilityResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CheckDoctorAvailability not implemented")
+
+	hour := req.CurrentHour
+
+	weekday := utils.ProtoWeekdayToWeekDay(req.WeekDay)
+
+	id := req.DoctorId
+
+	available, err := repository.CheckDoctorAvailability(id, weekday, hour)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &docpb.DoctorAvailabilityResponse{
+		Available: available,
+	}, nil
 }
 func (d *doctorGrpcApi) UpdateDoctor(ctx context.Context, req *docpb.UpdateDoctorRequest) (*docpb.UpdateDoctorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDoctor not implemented")
