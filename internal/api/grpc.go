@@ -9,8 +9,6 @@ import (
 
 	"github.com/google/uuid"
 	docpb "github.com/the-spine/spine-protos-go/doctor"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type doctorGrpcApi struct {
@@ -89,6 +87,7 @@ func (d *doctorGrpcApi) RegisterDoctor(ctx context.Context, req *docpb.RegisterD
 
 	return &res, nil
 }
+
 func (d *doctorGrpcApi) GetDoctor(ctx context.Context, req *docpb.GetDoctorRequest) (*docpb.GetDoctorResponse, error) {
 
 	resDoctors := make([]*docpb.Doctor, 10)
@@ -133,9 +132,88 @@ func (d *doctorGrpcApi) CheckDoctorAvailability(ctx context.Context, req *docpb.
 		Available: available,
 	}, nil
 }
+
 func (d *doctorGrpcApi) UpdateDoctor(ctx context.Context, req *docpb.UpdateDoctorRequest) (*docpb.UpdateDoctorResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateDoctor not implemented")
+	doc := req.GetDoctor()
+
+	id := uuid.New()
+
+	address := models.Address{
+		Street:     doc.Address.Street,
+		City:       doc.Address.City,
+		State:      doc.Address.State,
+		Country:    doc.Address.Country,
+		PostalCode: doc.Address.PostalCode,
+	}
+
+	contact := models.ContanctDetails{
+		Email:            doc.ContactDetails.Email,
+		PhoneNumber:      doc.ContactDetails.PhoneNumber,
+		Website:          doc.ContactDetails.Website,
+		EmergencyContact: doc.ContactDetails.EmergencyContact,
+	}
+
+	educations := make([]models.Education, 0)
+
+	for _, edu := range doc.Educations {
+		educations = append(educations, models.Education{
+			Degree:         edu.Degree,
+			University:     edu.University,
+			GraduationYear: int(edu.GraduationYear),
+		})
+	}
+
+	availableHours := make([]models.AvailableHours, 0)
+
+	for _, ah := range doc.AvailableHours {
+		availableHours = append(availableHours, models.AvailableHours{
+			Weekday:    utils.ProtoWeekdayToWeekDay(ah.WeekDay),
+			StartHours: int(ah.StartHour),
+			EndHours:   int(ah.EndHour),
+		})
+
+	}
+
+	doctor := models.Doctor{
+		ID:              id,
+		FirstName:       doc.Name.FirstName,
+		MiddleName:      doc.Name.MiddleName,
+		LastName:        doc.Name.LastName,
+		Address:         address,
+		ContanctDetails: contact,
+		Educations:      educations,
+		AvailableHours:  availableHours,
+	}
+
+	err := repository.CreateDoctor(&doctor)
+
+	res := docpb.UpdateDoctorResponse{
+		Success: false,
+	}
+
+	if err != nil {
+		return &res, err
+	}
+
+	res.Success = true
+
+	return &res, nil
 }
+
 func (d *doctorGrpcApi) DeleteDoctor(ctx context.Context, req *docpb.DeleteDoctorRequest) (*docpb.DeleteDoctorResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteDoctor not implemented")
+	id := req.DoctorId
+
+	err := repository.DeleteDoctor(id)
+
+	res := docpb.DeleteDoctorResponse{
+		Success: false,
+	}
+
+	if err != nil {
+		return &res, err
+	}
+
+	res.Success = true
+
+	return &res, nil
 }
