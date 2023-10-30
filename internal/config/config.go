@@ -4,6 +4,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+var Konfig Config
+
 type Config struct {
 	Postgres PostgresConfig `mapstructure:"postgres"`
 	Redis    RedisConfig    `mapstructure:"redis"`
@@ -42,12 +44,10 @@ func LoadConfig(configPath string) (*Config, error) {
 		return nil, err
 	}
 
-	// Unmarshal config into struct
-	var config Config
-	err = viper.Unmarshal(&config)
+	err = viper.Unmarshal(&Konfig)
 	if err != nil {
 		return nil, err
 	}
 
-	return &config, nil
+	return &Konfig, nil
 }
