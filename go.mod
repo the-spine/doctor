@@ -3,11 +3,11 @@ module doctor
 go 1.21.2
 
 require (
-	github.com/google/uuid v1.3.0
+	github.com/google/uuid v1.3.1
 	github.com/redis/go-redis/v9 v9.2.1
 	github.com/spf13/viper v1.17.0
 	github.com/the-spine/spine-protos-go v0.0.0-20231026160203-41c3fc93cb99
-	google.golang.org/grpc v1.58.2
+	google.golang.org/grpc v1.59.0
 	gorm.io/driver/postgres v1.5.3
 	gorm.io/gorm v1.25.5
 )
