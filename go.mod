@@ -7,7 +7,7 @@ require (
 	github.com/redis/go-redis/v9 v9.2.1
 	github.com/spf13/viper v1.17.0
 	github.com/the-spine/spine-protos-go v0.0.0-20231026160203-41c3fc93cb99
-	google.golang.org/grpc v1.58.2
+	google.golang.org/grpc v1.58.3
 	gorm.io/driver/postgres v1.5.3
 	gorm.io/gorm v1.25.5
 )
